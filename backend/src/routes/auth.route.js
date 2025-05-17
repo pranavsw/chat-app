@@ -1,11 +1,17 @@
 import express from 'express';
+import { login, logout, signup, updateProfile, checkAuth} from "../controllers/auth.controller.js"; // Importing the signup controller
+import { protectRoute } from "../middleware/auth.middleware.js"; // Importing the protectRoute middleware
 
-import { login, logout, signup } from "../controllers/auth.controller.js"; // Importing the signup controller
 
 const router = express.Router();
 
 router.post("/signup",signup);
 router.post("/login", login);
 router.post("/logout", logout);
+
+router.put("/update-profile", protectRoute , updateProfile);
+
+router.get("/check", protectRoute, checkAuth);
+
 
 export default router;
